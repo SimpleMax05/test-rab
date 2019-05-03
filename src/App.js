@@ -3,24 +3,34 @@ import Home from './components/home'
 import Info from './components/info'
 import Profile from './components/profile'
 import Login from './components/login'
+import Datapicker from './components/datapicker/index'
 
 import React, {Component} from 'react'
 
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import { BrowserRouter as Router, Route} from "react-router-dom"
 
 class App extends Component{
   state = {
-    loginin: false
+    loginin: !!localStorage.getItem('loginin')||false,
+    Name: localStorage.getItem('PersonState')||''
+  };
+  setName = (params) => {
+    this.setState({
+      Name: params,
+      loginin: true
+    });
   }
   render(){
     return (
       <div className="App">
-        <Navigate />
-        <Router>
-          <Route exact path="/" component={Home} />
+        <Navigate login={this.state.loginin} name={this.state.Name}/>
+        <Router >
+          <Route exact path="/" component={Home}/>
           <Route path="/info" component={Info} />
-          <Route path="/profile" component={this.state.loginin? Profile:Login}/>
+          <Route path="/profile"component={Profile} />
+          <Route path="/Login" render={(props) => <Login {...props} Name={this.state.Name} setName={this.setName}/>} />
+          <Route path="/calendar" component={Datapicker} />
         </Router>
       </div>
     );
