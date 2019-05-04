@@ -28,7 +28,7 @@ class App extends Component{
         <Router >
           <Route exact path="/" component={Home}/>
           <Route path="/info" component={Info} />
-          <Route path="/profile"component={Profile} />
+          <Route path="/profile" render={(props) =>  <Profile {...props} Name={this.state.Name}/>} />
           <Route path="/Login" render={(props) => <Login {...props} Name={this.state.Name} setName={this.setName}/>} />
           <Route path="/calendar" component={Datapicker} />
         </Router>

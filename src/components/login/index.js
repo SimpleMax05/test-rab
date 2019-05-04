@@ -10,7 +10,7 @@ class Login extends Component{
             inputPassword: ''
         };
     }
-   
+
     render(){
 
         return(
@@ -37,12 +37,12 @@ class Login extends Component{
     updateinputLogin = (evt) =>{
         this.setState({
             inputLogin: evt.target.value
-          });
+        });
     }
     updateinputPassword = (evt) =>{
         this.setState({
             inputPassword: evt.target.value
-          });
+        });
     }
 
 

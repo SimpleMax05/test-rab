@@ -11,7 +11,7 @@ class Navigation extends Component{
     render(){
         return(
             <div className="navDiv">
-                 <ul className="nav">
+                <ul className="nav">
                     <li><a href="/">Home</a></li>
                     <li><a href={this.props.login? '/profile':'/login'}>Profile</a></li>
                     <li><a href="/info">Info</a></li>

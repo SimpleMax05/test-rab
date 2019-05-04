@@ -5,12 +5,18 @@
     height: 100px;
     color: black;
     margin: 0;
+    text-align: inherit;
 }
 .listItem{
     width: 1600px;
 }
-.calendarDay > h4{
-    
+.calendarDay > h6{
+    text-align: inherit;
+    margin-top: -40px;
+    color: grey;
+}
+.calendarDay > p{
+    font-size: 12px;
 }
 .flexH{
     display: flex;

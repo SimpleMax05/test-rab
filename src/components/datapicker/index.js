@@ -11,30 +11,50 @@ class Datapicker extends Component{
         dataСhoice: 0
 
     }
+
+    elementMassText(date){
+        if(localStorage.getItem('dateInformation')!==null){
+           let elem = localStorage.getItem('dateInformation');
+           let arr = JSON.parse(elem);
+           let date1 = new Date(date);
+           for (let index = 0; index < arr.length; index++) {
+            let dateIn = new Date(arr[index].date);
+            if((dateIn.getMonth()===date1.getMonth())&&(dateIn.getDate()===date1.getDate())&&(dateIn.getFullYear()===date1.getFullYear())){
+                    return arr[index].text;
+                }
+            
+            console.log(dateIn+"<>"+date1);
+        }
+        }
+       console.log("local"+localStorage.getItem('dateInformation'));
+       return "";
+       
+    }
     
     calendarDay = () =>{
-        let day_in_month = 32 - new Date(this.state.year, this.state.montsInt-1, 32).getDate();
-        let day_in_month2 = 32 - new Date(this.state.year, this.state.montsInt-2, 32).getDate();
+        let day_in_month_etot = 32 - new Date(this.state.year, this.state.montsInt, 32).getDate();
+        let day_in_month_pered = 32 - new Date(this.state.year, this.state.montsInt-1, 32).getDate();
         let weakDay = new Date(this.state.year, this.state.montsInt, 1).getDay();
         let mass = [];
-        day_in_month2 = day_in_month2 - 2;
-        console.log(weakDay);
+        if(weakDay===0){
+            weakDay=7;
+        }
+
+        //console.log("weakDay"+weakDay);
+        //console.log("day_in_month_etot"+day_in_month_etot);
+       // console.log("day_in_month_pered"+day_in_month_pered);
+        day_in_month_pered = day_in_month_pered - (weakDay-2);
+        //var date = new Date(this.state.year, this.state.montsInt, ); данные для ежедневника
         for (let index = 0; index < weakDay-1; index++) {
-            mass.push({"name": day_in_month2, text:textInDate }); 
-            day_in_month2++;
+            mass.push({"name": day_in_month_pered, text: ""}); 
+            day_in_month_pered++;
         }
 
-        for (let index = 1; index < day_in_month+2; index++) {
-
-            if(index === 4){
-                var textInDate = "ddfghgh fwgtrgrgtb wergd weftghwt"
-            }else {
-                textInDate = ""
-            }
-                mass.push({"name": index, text:textInDate }); 
+        for (let index = 1; index < day_in_month_etot+1; index++) {
+                mass.push({"name": index, text: this.elementMassText(new Date(this.state.year, this.state.montsInt, index))  }); 
         }
-        for (let index = 1; index < 43-(day_in_month+weakDay); index++) {
-            mass.push({"name": index, text:textInDate }); 
+        for (let index = 1; index < 43-(day_in_month_etot+weakDay-1); index++) {
+            mass.push({"name": index, text:"" }); 
             
         }
         return mass;
@@ -72,30 +92,69 @@ class Datapicker extends Component{
     }
     addNewText = () => {
         
-        if(this.state.dataСhoice!=0){
+        if(this.state.dataСhoice!==0){
             var result = prompt("title", "");
             var date = new Date(this.state.year,this.state.montsInt,this.state.dataСhoice);
             let appDateInformation = [];
-            appDateInformation.push(localStorage.getItem('dateInformation'));
-            //appDateInformation
+            
+            appDateInformation = JSON.parse(localStorage.getItem('dateInformation'));
+
+                if(appDateInformation===null){
+
+                    appDateInformation = [];
+
+                }
+
             appDateInformation.push({"date":date, "text": result});
-            localStorage.setItem('dateInformation', appDateInformation);
+            localStorage.setItem('dateInformation', JSON.stringify(appDateInformation));
+            this.forceUpdate();
         }else{
             alert("Пока не выбрана дата");
         }
 
-        console.log(result);
     }
+
+    updateText = () =>{
+        if(this.state.dataСhoice!==0){
+            var result = prompt("title", this.elementMassText(new Date(this.state.year, this.state.montsInt, this.state.dataСhoice)));
+            var date = new Date(this.state.year,this.state.montsInt,this.state.dataСhoice);
+            let appDateInformation = [];
+            
+            appDateInformation = JSON.parse(localStorage.getItem('dateInformation'));
+
+                if(appDateInformation===null){
+
+                    appDateInformation = [];
+
+                }
+                let date1 = new Date(date);
+                let arr = appDateInformation;
+                for (let index = 0; index < arr.length; index++) {
+                    let dateIn = new Date(arr[index].date);
+                    if((dateIn.getMonth()===date1.getMonth())&&(dateIn.getDate()===date1.getDate())&&(dateIn.getFullYear()===date1.getFullYear())){
+                            arr[index].text = result;
+                        }
+                    
+                  //  console.log(dateIn+"<>"+date1);
+                }
+           // appDateInformation.push({"date":date, "text": result});
+            localStorage.setItem('dateInformation', JSON.stringify(appDateInformation));
+            this.forceUpdate();
+        }else{
+            alert("Пока не выбрана дата");
+        }
+    }
+
     render(){
         const listItems = this.calendarDay().map((d) => 
-            <button className="calendarDay" style={d.text? {background: 'rgb(0, 183, 255)'}:{background: 'none'}} key={d.name} onClick={(e)=>this.addText(e,d)} >
-                <h4>{d.name}</h4> 
-                <h6>{d.text}</h6>
+            <button className="calendarDay" style={d.text? {background: 'rgb(0, 183, 255)'}:{background: 'none'}} key={d.id} onClick={(e)=>this.addText(e,d)} >
+                <h6>{d.name}</h6> 
+                <p>{d.text}</p>
             </button>);
         return(
             <div className="calendarPadding">
                 <button onClick={(e)=>this.addNewText(e,"")}>Добавить</button>
-                <button className="callendarButton">Обновить</button>
+                <button onClick={(e)=>this.updateText(e,"")} className="callendarButton">Обновить</button>
                 <div className="divSeach">
                     <button className = "buttonSeach">&#128270;</button>
                     <input value={this.state.inputLogin} onChange={evt => this.updateinputLogin(evt)} type="text"/>
