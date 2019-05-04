@@ -17,7 +17,7 @@ class Navigation extends Component{
                     <li><a href="/info">Info</a></li>
                     {this.props.login? <li><a href="/calendar">Calendar</a></li>:""}
                 </ul>
-                <h1>{this.props.name}</h1>
+                <h2 className="loginNavigation">{this.props.name}</h2>
             </div>
         )
     }

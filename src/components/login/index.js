@@ -32,7 +32,6 @@ class Login extends Component{
         } else {
             alert("Имя пользователя или пароль введены неверно");
         }
-       // console.log(this.state.inputLogin+"<>"+this.state.inputPassword+"<>"+Polzov.name);
     }
     updateinputLogin = (evt) =>{
         this.setState({

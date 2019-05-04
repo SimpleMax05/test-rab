@@ -31,3 +31,8 @@ ul.nav a:hover{
     height: 90px;
     background: rgb(43, 39, 39);
 }
+
+.loginNavigation{
+    color: rgb(14, 80, 155);
+    text-align: center;
+}

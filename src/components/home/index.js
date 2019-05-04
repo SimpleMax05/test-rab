@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-
+import logo from "./Kosmodes.jpg"
 class Home extends Component{
     state = {
         reverted: false
@@ -8,7 +8,7 @@ class Home extends Component{
 
         return(
             <div>
-                <h1>Home</h1>
+                <img style={{width: "100%"}} src={logo} alt=""/>  
             </div>
         )
     }

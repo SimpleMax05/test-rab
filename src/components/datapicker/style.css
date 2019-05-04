@@ -7,6 +7,10 @@
     margin: 0;
     text-align: inherit;
 }
+.callendarButtonNow{
+    width: 100px !important;
+    margin-left: 10px;
+}
 .listItem{
     width: 1600px;
 }
@@ -54,4 +58,30 @@
 .divSeach{
     float: right;
     
+}
+.addButton{
+    border-radius: 3px;
+    padding: 3px;
+    margin: 0 5px 0 5px;
+    background: none;
+    color: rgb(14, 80, 155);
+    border: 1px solid rgb(14, 80, 155);
+}
+.updateButton{
+    border-radius: 3px;
+    padding: 3px;
+    margin: 0 5px 0 5px;
+    background: none;
+    color: rgb(14, 80, 155);
+    border: 1px solid rgb(14, 80, 155);
+}
+.updateButton:hover{
+    background: rgb(14, 80, 155);
+    color:white;
+
+}
+.addButton:hover{
+    background: rgb(14, 80, 155);
+    color:white;
+
 }

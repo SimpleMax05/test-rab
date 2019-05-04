@@ -8,16 +8,17 @@ class Datapicker extends Component{
         montsInt: new Date().getMonth(),
         year: new Date().getFullYear(),
         dataNow: new Date().getDate(),
-        dataСhoice: 0
+        dataСhoice: 0,
+        seachText: ""
 
     }
 
     elementMassText(date){
         if(localStorage.getItem('dateInformation')!==null){
-           let elem = localStorage.getItem('dateInformation');
-           let arr = JSON.parse(elem);
-           let date1 = new Date(date);
-           for (let index = 0; index < arr.length; index++) {
+        let elem = localStorage.getItem('dateInformation');
+        let arr = JSON.parse(elem);
+        let date1 = new Date(date);
+        for (let index = 0; index < arr.length; index++) {
             let dateIn = new Date(arr[index].date);
             if((dateIn.getMonth()===date1.getMonth())&&(dateIn.getDate()===date1.getDate())&&(dateIn.getFullYear()===date1.getFullYear())){
                     return arr[index].text;
@@ -26,9 +27,7 @@ class Datapicker extends Component{
             console.log(dateIn+"<>"+date1);
         }
         }
-       console.log("local"+localStorage.getItem('dateInformation'));
-       return "";
-       
+    return "";
     }
     
     calendarDay = () =>{
@@ -46,7 +45,7 @@ class Datapicker extends Component{
         day_in_month_pered = day_in_month_pered - (weakDay-2);
         //var date = new Date(this.state.year, this.state.montsInt, ); данные для ежедневника
         for (let index = 0; index < weakDay-1; index++) {
-            mass.push({"name": day_in_month_pered, text: ""}); 
+            mass.push({"name": "", text: ""}); 
             day_in_month_pered++;
         }
 
@@ -54,7 +53,7 @@ class Datapicker extends Component{
                 mass.push({"name": index, text: this.elementMassText(new Date(this.state.year, this.state.montsInt, index))  }); 
         }
         for (let index = 1; index < 43-(day_in_month_etot+weakDay-1); index++) {
-            mass.push({"name": index, text:"" }); 
+            mass.push({"name": "", text:"" }); 
             
         }
         return mass;
@@ -91,9 +90,12 @@ class Datapicker extends Component{
         }
     }
     addNewText = () => {
-        
-        if(this.state.dataСhoice!==0){
-            var result = prompt("title", "");
+        let logick = this.state.dataСhoice;
+        if(logick===""){
+            logick = 0;
+        }
+        if(logick!==0){
+            var result = prompt("Событие", "");
             var date = new Date(this.state.year,this.state.montsInt,this.state.dataСhoice);
             let appDateInformation = [];
             
@@ -104,12 +106,13 @@ class Datapicker extends Component{
                     appDateInformation = [];
 
                 }
-
-            appDateInformation.push({"date":date, "text": result});
-            localStorage.setItem('dateInformation', JSON.stringify(appDateInformation));
+            if(result!==""){
+                appDateInformation.push({"date":date, "text": result});
+                localStorage.setItem('dateInformation', JSON.stringify(appDateInformation));
+            }
             this.forceUpdate();
         }else{
-            alert("Пока не выбрана дата");
+            alert("Не выбрана дата, для выбора нажмите на нужную дат мышью");
         }
 
     }
@@ -144,6 +147,17 @@ class Datapicker extends Component{
             alert("Пока не выбрана дата");
         }
     }
+    updateinputLogin = (evt) =>{
+        this.setState({
+            seachText: evt.target.value
+        });
+    }
+    nowClick = () =>{
+        alert('Не сказано что делать при нажатии');
+    }
+    nekoeDeistvie = () => {
+        alert('Не сказано как делать поиск');
+    }
 
     render(){
         const listItems = this.calendarDay().map((d) => 
@@ -153,16 +167,17 @@ class Datapicker extends Component{
             </button>);
         return(
             <div className="calendarPadding">
-                <button onClick={(e)=>this.addNewText(e,"")}>Добавить</button>
-                <button onClick={(e)=>this.updateText(e,"")} className="callendarButton">Обновить</button>
+                <button onClick={(e)=>this.addNewText(e,"")} className="addButton">Добавить</button>
+                <button onClick={(e)=>this.updateText(e,"")} className="updateButton">Обновить</button>
                 <div className="divSeach">
-                    <button className = "buttonSeach">&#128270;</button>
-                    <input value={this.state.inputLogin} onChange={evt => this.updateinputLogin(evt)} type="text"/>
+                    <button onClick={this.nekoeDeistvie} className = "buttonSeach">&#128270;</button>
+                    <input value={this.state.inputLogin} onChange={evt => this.updateinputLogin(evt)} type="text" placeholder="Событие, дата или участник"/>
                 </div>
                 <div className="flexH">
                     <button onClick={this.prevMonts} className="callendarButton">&#9668;</button>
                     <h4 >{this.state.muns[this.state.montsInt]+" "+this.state.year}</h4>
                     <button onClick={this.nextMonts} className="callendarButton">&#9658;</button>  
+                    <button onClick={this.nowClick} className="callendarButtonNow">Сегодня</button>
                 </div>
                     <div>
                             <div className="divWeak">Понедельник</div>
