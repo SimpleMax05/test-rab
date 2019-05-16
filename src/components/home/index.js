@@ -1,14 +1,19 @@
 import React, {Component} from 'react'
-import logo from "./Kosmodes.jpg"
+import logo from './HomeBackgroundKosmodes.jpg'
 class Home extends Component{
-    state = {
-        reverted: false
+
+    constructor(props){
+        super(props);
+        this.state = {
+            reverted: false
+        }
+    
     }
     render(){
 
         return(
             <div>
-                <img style={{width: "100%"}} src={logo} alt=""/>  
+                <img src={logo} alt=''/>  
             </div>
         )
     }

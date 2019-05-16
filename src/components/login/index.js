@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './style.css'
-import Polzov from '../../polzovatel'
+import User from '../../user'
+
 
 class Login extends Component{
     constructor(props){
@@ -10,38 +11,47 @@ class Login extends Component{
             inputPassword: ''
         };
     }
+    
+    checkAuthorizationPerson(){
+        if (this.state.inputLogin===User.name&&this.state.inputPassword===User.pass) {
+            return true;
+        }
+        return false;
 
-    render(){
-
-        return(
-            <div className="divLogin">
-                <h3>Login</h3>
-                <input value={this.state.inputLogin} onChange={evt => this.updateinputLogin(evt)} type="text"/>
-                <h3>Password</h3>
-                <input value={this.state.inputPassword} onChange={evt => this.updateinputPassword(evt)} type="password"/>
-                <button onClick={this.autorisetPerson}>Sign in</button>
-            </div>
-        )
     }
-    autorisetPerson = () =>{
-        if (this.state.inputLogin===Polzov.name&&this.state.inputPassword===Polzov.pass) {
-            this.props.setName(Polzov.name);
-            localStorage.setItem('PersonState', Polzov.name);
+    authorizationPerson = () =>{
+        if (this.checkAuthorizationPerson()) {
+            this.props.setName(User.name);
+            localStorage.setItem('PersonState', User.name);
             localStorage.setItem('loginin', 'true');
             document.location.replace("/profile");
         } else {
-            alert("Имя пользователя или пароль введены неверно");
+            alert('Имя пользователя или пароль введены неверно');
         }
     }
-    updateinputLogin = (evt) =>{
+    updateInputLogin = (evt) =>{
         this.setState({
             inputLogin: evt.target.value
         });
     }
-    updateinputPassword = (evt) =>{
+    updateInputPassword = (evt) =>{
         this.setState({
             inputPassword: evt.target.value
         });
+    }
+
+    
+    render(){
+
+        return(
+            <div className='DivLogin'>
+                <h3>Login</h3>
+                <input value={this.state.inputLogin} onChange={evt => this.updateInputLogin(evt)} type='text'/>
+                <h3>Password</h3>
+                <input value={this.state.inputPassword} onChange={evt => this.updateInputPassword(evt)} type='password'/>
+                <button onClick={this.authorizationPerson}>Sign in</button>
+            </div>
+        )
     }
 
 

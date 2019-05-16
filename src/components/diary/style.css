@@ -10,6 +10,7 @@
 .callendarButtonNow{
     width: 100px !important;
     margin-left: 10px;
+    float: none;
 }
 .listItem{
     width: 1600px;
@@ -23,7 +24,8 @@
     font-size: 12px;
 }
 .flexH{
-    display: flex;
+
+    margin-bottom: 50px;
 }
 .flexH>button{
     font-size: 20px;
@@ -33,12 +35,15 @@
     height: 30px;
     width: 30px;
     padding: 0;
+    float: left;
+
 }
 .flexH>h4{
     padding-top: 15px;
     margin-bottom: 10px;
     width: 100px;
     text-align: center;
+    float: left;
 }
 .calendarDay > h6{
     float: inherit;
@@ -83,5 +88,14 @@
 .addButton:hover{
     background: rgb(14, 80, 155);
     color:white;
+
+}
+
+.daysOfTheWeek{
+    float: left;
+    width: 200px;
+    text-align: center;
+    padding: 10px 0 10px 0;
+    border: 1px solid rgb(0, 183, 255);
 
 }

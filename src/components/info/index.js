@@ -1,11 +1,15 @@
 import React, {Component} from 'react'
-import './style.css'
-import logo from "./1.png"
+import logo from './InfoCalendar.png'
 
 class Info extends Component{
-    state = {
-        reverted: false
+    constructor(props){
+        super(props);
+        this.state = {
+            reverted: false
+        }
+    
     }
+    
     render(){
 
         return(
@@ -41,7 +45,7 @@ class Info extends Component{
 
                 Реализовать в приложении хотя бы один из двух описанных ниже дополнительных разделов на выбор: Календарь или Таблицу с данными. 
                 </p>    
-                <img src={logo} alt="Календарь"/>    
+                <img src={logo} alt='Календарь'/>    
                 <ul>
                     <li>Страница должна быть закрыта без авторизации.</li>
                     <li>Реализовать Добавление/Редактирование событий пользователя в календарь.</li>

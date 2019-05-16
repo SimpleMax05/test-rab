@@ -27,12 +27,12 @@ ul.nav a:hover{
     background-color: rgb(14, 80, 155);
     color: #f4f4f4;
 }
-.navDiv{
+.NavDiv{
     height: 90px;
     background: rgb(43, 39, 39);
 }
 
-.loginNavigation{
+.LoginNavigation{
     color: rgb(14, 80, 155);
     text-align: center;
 }

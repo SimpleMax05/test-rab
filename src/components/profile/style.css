@@ -1,14 +1,14 @@
-.eventDiv{
+.EventDiv{
     width: auto;
     border: 1px solid red;
     margin: 5px 0 5px 0;
 }
 
-.eventDiv > p{
+.EventDiv > p{
     background: grey;
     font-size: 24px;
 }
-.eventDiv > h4{
+.EventDiv > h4{
     background: rgb(14, 80, 155);
     padding: 5px;
     color: white;
